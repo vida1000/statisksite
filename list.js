@@ -34,3 +34,5 @@ function showProducts(products) {
 }
 
 getData(productURL);
+
+console.log("Hello test test test");
