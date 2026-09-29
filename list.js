@@ -1,4 +1,7 @@
-const productURL = "https://kea-alt-del.dk/t7/api/products";
+const param = new URLSearchParams(window.location.search);
+const selectedCategory = param.get("category");
+console.log("SelectedCategory", selectedCategory);
+const productURL = `https://kea-alt-del.dk/t7/api/products?category=${selectedCategory}`;
 const listContainer = document.querySelector(".product_list_container");
 
 function getData(url) {
@@ -15,24 +18,25 @@ function showProducts(products) {
   listContainer.innerHTML = "";
 
   products.forEach((product) => {
-    let soldOutClass = "";
-    if (product.soldout) {
-      soldOutClass = "soldout";
-    }
-
     listContainer.innerHTML += `<article class="product ${product.soldout ? "soldout" : ""}"> 
-                <img src="https://kea-alt-del.dk/t7/images/webp/640/${product.id}.webp" alt="Placeholder" />
-                <h3>${product.productdisplayname}</h3>
-                 <p>${product.brandname} - ${product.category}</p>
-                 <div>
-          <p>${product.price} kr</p>
-        </div>
-                <p><a href="produkt.html">Read More</a></p>
-                  ${product.soldout ? '<p class="soldout_tag">Sold Out</p>' : ""} 
+    <img src="https://kea-alt-del.dk/t7/images/webp/640/${product.id}.webp" alt="Placeholder" />
+    <h3>${product.productdisplayname}</h3>
+     <p>${product.brandname} - ${product.category}</p>
+    <div>
+         
+    ${product.discount ? "<p class='discount_tag'>" + getDiscountPrice(product.price, product.discount) + "</p>" : ""}
+
+    <p>${product.price} kr ${product.discount ? " -" + product.discount + "%" : ""}</p>
+    </div>
+    <p><a href="detailview.html?id=${product.id}">Read More</a></p>
+    ${product.soldout ? "<p class='soldout_tag'>Sold Out</p>" : ""}
+                  
       </article>`;
   });
 }
 
 getData(productURL);
-
-console.log("Hello test test test");
+function getDiscountPrice(originalPrice, discount) {
+  /* math round runder til nærmeste hele tal*/
+  return Math.round((originalPrice * (100 - discount)) / 100);
+}

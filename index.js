@@ -21,7 +21,7 @@ function showData(data) {
 
     myInnerHTML += `<div class="category">
                 <img src="img/accessoriess.webp" alt="Accessories">
-                <a href="produktliste.html">
+                <a href="produktliste.html?category=${category.category}">
                     <h3>${category.category}</h3>
                 </a>
 
