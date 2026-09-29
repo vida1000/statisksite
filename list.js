@@ -22,11 +22,9 @@ function showProducts(products) {
     <img src="https://kea-alt-del.dk/t7/images/webp/640/${product.id}.webp" alt="Placeholder" />
     <h3>${product.productdisplayname}</h3>
      <p>${product.brandname} - ${product.category}</p>
-    <div>
-         
-    ${product.discount ? "<p class='discount_tag'>" + getDiscountPrice(product.price, product.discount) + "</p>" : ""}
-
-    <p>${product.price} kr ${product.discount ? " -" + product.discount + "%" : ""}</p>
+    <div>   
+      ${product.discount ? "<p class='discount_tag'>" + getDiscountPrice(product.price, product.discount) + "</p>" : ""}
+      <p>${product.price} kr ${product.discount ? " -" + product.discount + "%" : ""}</p>
     </div>
     <p><a href="detailview.html?id=${product.id}">Read More</a></p>
     ${product.soldout ? "<p class='soldout_tag'>Sold Out</p>" : ""}
@@ -36,6 +34,7 @@ function showProducts(products) {
 }
 
 getData(productURL);
+
 function getDiscountPrice(originalPrice, discount) {
   /* math round runder til nærmeste hele tal*/
   return Math.round((originalPrice * (100 - discount)) / 100);

@@ -35,7 +35,8 @@ function showDetails(detail) {
             <p>${detail.id}</p>
             <p>${detail.description}</p>
             <p>${detail.basecolour}</p>
-            <p>${detail.price}</p>
+            ${detail.discount ? "<p class='discount_tag'>" + getDiscountPrice(detail.price, detail.discount) + " kr</p>" : ""}
+            <p>${detail.price} kr ${detail.discount ? " -" + detail.discount + "%" : ""}</p>
 
 
             <label for="size">Size</label>
@@ -58,3 +59,8 @@ function showDetails(detail) {
 }
 
 loadData(detailURL);
+
+function getDiscountPrice(originalPrice, discount) {
+  /* math round runder til nærmeste hele tal*/
+  return Math.round((originalPrice * (100 - discount)) / 100);
+}
